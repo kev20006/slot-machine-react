@@ -1,0 +1,1 @@
+import SlotMachine from "./js/components/container/SlotMachine.js"
