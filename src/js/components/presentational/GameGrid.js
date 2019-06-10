@@ -5,7 +5,7 @@ const GameGrid = (props) => {
     console.log(props)
     return(
         <div>
-            {props.board.map(element=> <GameRow row={element}/>)}
+            {props.board.map((element, index)=> <GameRow key={"row-" + index} row={element} actions={props.actions}/>)}
         </div>
     )
 }

@@ -10,10 +10,12 @@ const BalanceDisplay = (props) => {
             {<h3>Last Stake: {props.stake}</h3>}
             <input id="money-input" type="number" />
             {!props.balance?
-                <AddBalance action={props.actions.addBalance}/>:
+                <AddBalance 
+                    actions={props.actions}
+                    errorState={props.errorState}/>:
                 <ManageBalance
                     balance = {props.balance} 
-                    action={props.actions.placeBet}
+                    actions={props.actions}
                     errorState={props.errorState}
                 />
             }   

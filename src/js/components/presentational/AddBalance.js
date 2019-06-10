@@ -1,13 +1,14 @@
 import React from "react";
 
-const AddBalance = (balance) => {
-    console.log(balance)
+const AddBalance = (props) => {
+    console.log(props.actions)
     return(
         <div>
-            <input type="button" onClick={()=>{
-                    balance.action(parseInt(document.querySelector("#money-input").value))
+            <input type="button" onClick={()=>{ 
+                    props.actions.addBalance(parseInt(document.querySelector("#money-input").value))
                     document.querySelector("#money-input").value = "";
-            }} value="add money"/>    
+            }} value="add money"/>   
+            {props.errorState == "Invalid Balance" && <p>Please enter a numerical value</p>} 
         </div>
         
     )

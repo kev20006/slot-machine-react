@@ -1,12 +1,11 @@
 import React from "react";
 
 const ManageBalance = (props) => {
-    console.log(props.errorState)
     return(
         <div>
             <input type="button" 
                 onClick={()=>{
-                        props.action(parseInt(document.querySelector("#money-input").value));
+                        props.actions.placeBet(parseInt(document.querySelector("#money-input").value));
                         document.querySelector("#money-input").value = "";
                     }
                 } 
