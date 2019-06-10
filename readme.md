@@ -1,10 +1,10 @@
 # React Slot Machine
 
-simple slot machine in react, without any styling at all
+simple slot machine in react.
 
 ## set up
 
-to build the app :
+### to build the app :
 
 install dependencies:
 ```sh
@@ -16,7 +16,7 @@ npm run-script build
 ```
 once built ./dist/Index.html will run the app.
 
-to run the dev server:
+### to run the dev server:
 
 build the app as above
 
