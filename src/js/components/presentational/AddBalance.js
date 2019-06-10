@@ -1,7 +1,6 @@
 import React from "react";
 
 const AddBalance = (props) => {
-    console.log(props.actions)
     return(
         <div>
             <input type="button" onClick={()=>{ 

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Winning = (props) => {
-    console.log(props)
+    props.isPrize&&props.actions.addWinning(props.prize)
     return(
         <div>
             {props.prize?

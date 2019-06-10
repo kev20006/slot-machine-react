@@ -5,8 +5,8 @@ const ManageBalance = (props) => {
         <div>
             <input type="button" 
                 onClick={()=>{
-                        props.actions.placeBet(parseInt(document.querySelector("#money-input").value));
-                        document.querySelector("#money-input").value = "";
+                        props.actions.newSpin(parseInt(document.querySelector("#money-input").value));
+                        document.querySelector("#money-input").value = ""
                     }
                 } 
                 value="place bet"

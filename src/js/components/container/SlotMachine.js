@@ -5,6 +5,7 @@ import Winning from "../presentational/Winning"
 import ReactDOM from "react-dom";
 
 function SlotMachine(){
+    
     const [balance, setBalance] = useState(0);
     const [stake, setStake] = useState(0);
     const [errorState, setErrorState] = useState("");
@@ -12,8 +13,16 @@ function SlotMachine(){
                                                 ["","",""],
                                                 ["","",""],
                                                 ["","",""]]);
-    const [coefficient, setCoefficient] = useState(0)
-    const [prize, setPrize] = useState(0)
+    const [coefficient, setCoefficient] = useState(0);
+    const [prize, setPrize] = useState(0);
+
+    
+    //function to for a turn in the game
+    // and update state
+    const newSpin = () => {
+        setCoefficient(0);   
+        newGameBoard();     
+    };
 
     //functions for managing users money
     const addBalance = (value) => {
@@ -21,22 +30,28 @@ function SlotMachine(){
             setErrorState("Invalid Balance");
         }
         else{
-            setBalance(balance + value);
-            
+            setBalance(balance => balance + value);
         }
     };
-    const placeBet = (value) => {
-        if (value <= balance){
-            setCoefficient(0);
-            setBalance(balance - value);
-            setStake(value);
-            newGameBoard();
+    
+    const placeBet = (stake) => {
+        if(stake <= balance){
+            newSpin()
+            setStake(stake);
+            console.log(balance)
+            setBalance(balance => balance - stake);
+            setPrize(true);
         }
         else{
             setErrorState("Not Enough Credit");
         }
-        
-    };
+    }
+   
+
+    const addWinning = (prize) => {
+        setPrize(false);
+        setBalance(balance => balance + prize);
+    }
 
 
     //functions for game logic
@@ -55,7 +70,7 @@ function SlotMachine(){
         }
     }
 
-    const newGameBoard = () =>{
+    const newGameBoard = (setup) =>{
         // function to generate a new randomised game board
         // and determine winning value
         let board= []
@@ -66,12 +81,11 @@ function SlotMachine(){
                 row.push(genSymbol())
             }
             board.push(row);
-            if(hasWon(row))boardTotal += calcPrizeRow(row)
-
+            if(hasWon(row)) boardTotal += calcPrizeRow(row)
+            setup
         }
+        setCoefficient(coefficient => coefficient + boardTotal);
         setGameBoard(board);
-        setCoefficient(boardTotal)
-        addBalance(boardTotal * stake)
     }
 
     //functions to calculate winnings
@@ -105,7 +119,7 @@ function SlotMachine(){
                 balance={balance} 
                 actions={{
                     addBalance: addBalance,
-                    placeBet: placeBet
+                    newSpin: placeBet
                 }}
                 stake= {stake}
                 errorState= {errorState}
@@ -119,8 +133,12 @@ function SlotMachine(){
             <Winning board = {gameBoard}
                     coefficient= {coefficient}
                     stake = {stake}
+                    balance = {balance}
                     prize = {stake * coefficient}
-                   
+                    isPrize = { prize }
+                    actions = {{
+                        addWinning: addWinning
+                    }}   
             />
         </div>
     )

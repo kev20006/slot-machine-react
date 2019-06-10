@@ -3,7 +3,6 @@ import AddBalance from "./AddBalance"
 import ManageBalance from "./ManageBalance"
 
 const BalanceDisplay = (props) => {
-    console.log(props);
     return(
         <div>
             <h1>Current Balance: {props.balance}</h1>
@@ -16,6 +15,7 @@ const BalanceDisplay = (props) => {
                 <ManageBalance
                     balance = {props.balance} 
                     actions={props.actions}
+                    coefficient={props.coefficient}
                     errorState={props.errorState}
                 />
             }   
