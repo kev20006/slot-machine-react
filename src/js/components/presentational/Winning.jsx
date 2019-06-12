@@ -1,16 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Winning = ({ isPrize, addWinning, prize, coefficient, stake }) => {
+const Winning = ({ isPrize, setIsPrize, prize, coefficient, stake, setBalance }) => {
+  const addWinning = newPrize => {
+    setIsPrize(false);
+    // eslint-disable-next-line no-shadow
+    setBalance(balance => balance + newPrize);
+  };
+
   if (isPrize) {
     addWinning(prize);
   }
   return (
     <div>
       {prize ? (
-        <h3>{`You win: ${coefficient}*${stake}=${prize}`}</h3>
+        <p className="lcd">{`You win: ${coefficient}*${stake}=${prize}`}</p>
       ) : (
-        <h3> No Winning Rows ths time</h3>
+        <p className="lcd"> No Winning Rows ths time</p>
       )}
     </div>
   );
@@ -18,7 +24,8 @@ const Winning = ({ isPrize, addWinning, prize, coefficient, stake }) => {
 
 Winning.propTypes = {
   isPrize: PropTypes.bool.isRequired,
-  addWinning: PropTypes.func.isRequired,
+  setIsPrize: PropTypes.func.isRequired,
+  setBalance: PropTypes.func.isRequired,
   prize: PropTypes.number.isRequired,
   coefficient: PropTypes.number.isRequired,
   stake: PropTypes.number.isRequired

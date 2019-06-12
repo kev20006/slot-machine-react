@@ -10,7 +10,7 @@ const AddBalance = ({ addBalance, errorState, getBalance, clearBalance }) => {
           addBalance(getBalance());
           clearBalance();
         }}
-        value="add money"
+        value="add credit"
       />
       {errorState === 'Invalid Balance' && <p>Please enter a numerical value</p>}
     </div>

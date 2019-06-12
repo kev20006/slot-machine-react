@@ -1,28 +1,36 @@
 /* eslint-disable import/extensions */
 import React, { useState } from 'react';
 
-import Balance from './Balance.jsx';
+import Bet from './Bet.jsx';
+import Header from './Header.jsx';
 import GameGrid from '../presentational/GameGrid.jsx';
 import Winning from '../presentational/Winning.jsx';
+
+import '../../../styles/css/app.css';
 
 function App() {
   const [balance, setBalance] = useState(0);
   const [stake, setStake] = useState(0);
+  const [lastStake, setLastStake] = useState(0);
   const [errorState, setErrorState] = useState('');
-  const [gameBoard, setGameBoard] = useState([
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', '']
-  ]);
+  const [gameBoard, setGameBoard] = useState(
+    (object => {
+      const board = [];
+      for (let i = 0; i <= 3; i += 1) {
+        board.push([]);
+        for (let j = 0; j <= 2; j += 1) {
+          board[i].push(object);
+        }
+      }
+      return board;
+    })({
+      symbol: 'X',
+      coefficient: 0
+    })
+  );
   const [coefficient, setCoefficient] = useState(0);
-  const [prize, setPrize] = useState(false);
-
-  const addWinning = newPrize => {
-    setPrize(false);
-    // eslint-disable-next-line no-shadow
-    setBalance(balance + newPrize);
-  };
+  const [isPrize, setIsPrize] = useState(false);
+  const [prize, setPrize] = useState(0);
 
   // functions for game logic
   const genSymbol = () => {
@@ -88,29 +96,33 @@ function App() {
     const board = newGameBoard();
     setGameBoard(board.board);
     setCoefficient(board.boardTotal);
+    setPrize(stake * board.boardTotal);
+    setLastStake(stake);
+    setStake(0);
   };
 
   return (
-    <div id="slot-machine">
-      <Balance
+    <div className="test" id="slot-machine">
+      <Header setBalance={setBalance} setErrorState={setErrorState} errorState={errorState} />
+      <GameGrid board={gameBoard} hasWon={hasWon} calcPrize={calcPrizeRow} />
+      <Winning
+        setIsPrize={setIsPrize}
+        setBalance={setBalance}
+        isPrize={isPrize}
+        prize={prize}
+        coefficient={coefficient}
+        stake={lastStake}
+      />
+      <Bet
         balance={balance}
         setBalance={setBalance}
         newSpin={newSpin}
         stake={stake}
+        prize={prize}
         setStake={setStake}
         errorState={errorState}
         setErrorState={setErrorState}
-        setPrize={setPrize}
-      />
-      <GameGrid board={gameBoard} hasWon={hasWon} calcPrize={calcPrizeRow} />
-      <Winning
-        board={gameBoard}
-        coefficient={coefficient}
-        stake={stake}
-        balance={balance}
-        prize={stake * coefficient}
-        isPrize={prize}
-        addWinning={addWinning}
+        setIsPrize={setIsPrize}
       />
     </div>
   );
