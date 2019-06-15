@@ -14,7 +14,8 @@ const Bet = ({
   setErrorState,
   setIsPrize,
   errorState,
-  prize
+  winnings,
+  setWinnings
 }) => {
   const placeBet = newStake => {
     if (newStake <= balance) {
@@ -35,10 +36,14 @@ const Bet = ({
   const clearStake = () => {
     setStake(0);
   };
+  const transferWinnings = value => {
+    setBalance(balance => balance + value);
+    setWinnings(winnings => winnings - value);
+  };
 
   return (
     <div>
-      <BetDisplay balance={balance} stake={stake} prize={prize} />
+      <BetDisplay balance={balance} stake={stake} winnings={winnings} />
       <BetControls
         balance={balance}
         stake={stake}
@@ -46,6 +51,8 @@ const Bet = ({
         clearStake={clearStake}
         placeBet={placeBet}
         errorState={errorState}
+        winnings={winnings}
+        transferWinnings={transferWinnings}
       />
     </div>
   );
@@ -60,7 +67,8 @@ Bet.propTypes = {
   errorState: PropTypes.string.isRequired,
   setErrorState: PropTypes.func.isRequired,
   setIsPrize: PropTypes.func.isRequired,
-  prize: PropTypes.number.isRequired
+  winnings: PropTypes.number.isRequired,
+  setWinnings: PropTypes.func.isRequired
 };
 
 export default Bet;

@@ -1,27 +1,33 @@
-import React from 'react';
+/* eslint-disable import/extensions */
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import NewBalancePopUp from './NewBalancePopUp.jsx';
 
-const AddBalance = ({ addBalance, errorState, getBalance, clearBalance }) => {
+const AddBalance = ({ addBalance }) => {
+  const [popUpState, setPopUpState] = useState(false);
   return (
     <div>
+      {popUpState && (
+        <NewBalancePopUp
+          addBalance={addBalance}
+          popupState={popUpState}
+          setPopUpState={setPopUpState}
+        />
+      )}
+
       <input
+        id="add-balance"
+        onClick={() => setPopUpState('notHidden')}
+        className="flat-button"
         type="button"
-        onClick={() => {
-          addBalance(getBalance());
-          clearBalance();
-        }}
         value="add credit"
       />
-      {errorState === 'Invalid Balance' && <p>Please enter a numerical value</p>}
     </div>
   );
 };
 
 AddBalance.propTypes = {
-  addBalance: PropTypes.func.isRequired,
-  errorState: PropTypes.string.isRequired,
-  getBalance: PropTypes.func.isRequired,
-  clearBalance: PropTypes.func.isRequired
+  addBalance: PropTypes.func.isRequired
 };
 
 export default AddBalance;

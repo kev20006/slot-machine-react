@@ -1,23 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Winning = ({ isPrize, setIsPrize, prize, coefficient, stake, setBalance }) => {
+const Winning = ({
+  isPrize,
+  setIsPrize,
+  prize,
+  coefficient,
+  stake,
+  setWinnings,
+  errorState,
+  setErrorState
+}) => {
   const addWinning = newPrize => {
     setIsPrize(false);
     // eslint-disable-next-line no-shadow
-    setBalance(balance => balance + newPrize);
+    setWinnings(winnings => winnings + newPrize);
   };
 
   if (isPrize) {
+    setErrorState(`you win: ${stake} * ${coefficient} = ${prize}`);
     addWinning(prize);
   }
   return (
     <div>
-      {prize ? (
-        <p className="lcd">{`You win: ${coefficient}*${stake}=${prize}`}</p>
-      ) : (
-        <p className="lcd"> No Winning Rows ths time</p>
-      )}
+      <p className="lcd">{errorState}</p>
     </div>
   );
 };
@@ -25,9 +31,11 @@ const Winning = ({ isPrize, setIsPrize, prize, coefficient, stake, setBalance })
 Winning.propTypes = {
   isPrize: PropTypes.bool.isRequired,
   setIsPrize: PropTypes.func.isRequired,
-  setBalance: PropTypes.func.isRequired,
+  setWinnings: PropTypes.func.isRequired,
   prize: PropTypes.number.isRequired,
   coefficient: PropTypes.number.isRequired,
-  stake: PropTypes.number.isRequired
+  stake: PropTypes.number.isRequired,
+  errorState: PropTypes.string.isRequired,
+  setErrorState: PropTypes.func.isRequired
 };
 export default Winning;

@@ -7,7 +7,7 @@ const Header = ({ setBalance, setErrorState, errorState }) => {
   const moneyInput = useRef(null);
   const addBalance = value => {
     if (!value || typeof value !== 'number') {
-      setErrorState('Invalid Balance');
+      setErrorState('please enter a value');
     } else {
       setBalance(value);
     }
@@ -22,15 +22,12 @@ const Header = ({ setBalance, setErrorState, errorState }) => {
     <div className="slot-header">
       <div />
       <h1>SLOT MACHINE!!!</h1>
-      <div>
-        <input id="money-input" type="number" ref={moneyInput} />
-        <AddBalance
-          addBalance={addBalance}
-          errorState={errorState}
-          getBalance={getBalance}
-          clearBalance={clearBalance}
-        />
-      </div>
+      <AddBalance
+        addBalance={addBalance}
+        errorState={errorState}
+        getBalance={getBalance}
+        clearBalance={clearBalance}
+      />
     </div>
   );
 };

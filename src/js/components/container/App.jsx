@@ -5,14 +5,20 @@ import Bet from './Bet.jsx';
 import Header from './Header.jsx';
 import GameGrid from '../presentational/GameGrid.jsx';
 import Winning from '../presentational/Winning.jsx';
+import logic from '../logic/logicWrapper';
 
 import '../../../styles/css/app.css';
 
-function App() {
+const App = () => {
   const [balance, setBalance] = useState(0);
   const [stake, setStake] = useState(0);
   const [lastStake, setLastStake] = useState(0);
   const [errorState, setErrorState] = useState('');
+  const [coefficient, setCoefficient] = useState(0);
+  const [isPrize, setIsPrize] = useState(false);
+  const [prize, setPrize] = useState(0);
+  const [winnings, setWinnings] = useState(0);
+  const [animate, setAnimate] = useState('');
   const [gameBoard, setGameBoard] = useState(
     (object => {
       const board = [];
@@ -28,104 +34,51 @@ function App() {
       coefficient: 0
     })
   );
-  const [coefficient, setCoefficient] = useState(0);
-  const [isPrize, setIsPrize] = useState(false);
-  const [prize, setPrize] = useState(0);
-
-  // functions for game logic
-  const genSymbol = () => {
-    // function to randomly generate symbol and coefficient
-    const randomNumber = Math.floor(Math.random() * 100) + 1;
-    switch (true) {
-      case randomNumber <= 45:
-        return { symbol: 'A', coefficient: 4 };
-      case randomNumber > 45 && randomNumber <= 80:
-        return { symbol: 'B', coefficient: 6 };
-      case randomNumber > 80 && randomNumber <= 95:
-        return { symbol: 'P', coefficient: 8 };
-      case randomNumber >= 95:
-        return { symbol: '*', coefficient: 0 };
-      default:
-        return 0;
-    }
-  };
-
-  // functions to calculate winnings
-  const hasWon = row => {
-    // function to determine if a Row has won
-    const totals = {};
-    row.forEach(element => {
-      totals[element.symbol] = totals[element.symbol] ? totals[element.symbol] + 1 : 1;
-    });
-    if (Object.keys(totals).length === 1 || (Object.keys(totals).length === 2 && totals['*'])) {
-      return true;
-    }
-    return false;
-  };
-
-  const calcPrizeRow = row => {
-    // return total coefficient for a row
-    const reducer = (accumulator, element) => {
-      return accumulator + element.coefficient;
-    };
-    const total = row.reduce(reducer, 0);
-    return total / 10;
-  };
-
-  const newGameBoard = () => {
-    // function to generate a new randomised game board
-    // and determine winning value
-    const board = [];
-    let boardTotal = 0;
-    for (let i = 0; i < 4; i += 1) {
-      board.push([]);
-      for (let j = 0; j < 3; j += 1) {
-        board[i].push(genSymbol());
-      }
-      if (hasWon(board[i])) {
-        boardTotal += calcPrizeRow(board[i]);
-      }
-    }
-    return {
-      board,
-      boardTotal
-    };
-  };
+  // eslint-disable-next-line no-unused-vars
+  const [hasWon, rowTotal, newGameBoard] = logic;
 
   const newSpin = () => {
-    const board = newGameBoard();
-    setGameBoard(board.board);
-    setCoefficient(board.boardTotal);
-    setPrize(stake * board.boardTotal);
-    setLastStake(stake);
-    setStake(0);
+    setAnimate('rotate');
+    setGameBoard(newGameBoard().board);
+    setTimeout(() => {
+      setAnimate('');
+      const board = newGameBoard();
+      setCoefficient(board.boardTotal);
+      setPrize(stake * board.boardTotal);
+      setLastStake(stake);
+      setStake(0);
+    }, 1000);
   };
 
   return (
     <div className="test" id="slot-machine">
       <Header setBalance={setBalance} setErrorState={setErrorState} errorState={errorState} />
-      <GameGrid board={gameBoard} hasWon={hasWon} calcPrize={calcPrizeRow} />
+      <GameGrid board={gameBoard} animate={animate} />
       <Winning
+        balance={balance}
         setIsPrize={setIsPrize}
-        setBalance={setBalance}
+        setWinnings={setWinnings}
         isPrize={isPrize}
         prize={prize}
         coefficient={coefficient}
         stake={lastStake}
+        errorState={errorState}
+        setErrorState={setErrorState}
       />
       <Bet
         balance={balance}
         setBalance={setBalance}
         newSpin={newSpin}
         stake={stake}
-        prize={prize}
+        winnings={winnings}
         setStake={setStake}
         errorState={errorState}
         setErrorState={setErrorState}
         setIsPrize={setIsPrize}
+        setWinnings={setWinnings}
       />
     </div>
   );
-}
+};
 
 export default App;
