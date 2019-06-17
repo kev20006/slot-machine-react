@@ -2,8 +2,8 @@
 /* eslint-disable import/extensions */
 import React from 'react';
 import PropTypes from 'prop-types';
-import BetDisplay from '../presentational/BetDisplay.jsx';
-import BetControls from '../presentational/BetControls.jsx';
+import BetDisplay from '../presentational/betcomponents/BetDisplay.jsx';
+import BetControls from '../presentational/betcomponents/BetControls.jsx';
 
 const Bet = ({
   balance,
@@ -42,7 +42,7 @@ const Bet = ({
   };
 
   return (
-    <div>
+    <div id="bet-wrapper">
       <BetDisplay balance={balance} stake={stake} winnings={winnings} />
       <BetControls
         balance={balance}

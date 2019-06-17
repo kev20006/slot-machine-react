@@ -23,7 +23,7 @@ const Winning = ({
   }
   return (
     <div>
-      <p className="lcd">{errorState}</p>
+      <p className="win-display">{errorState}</p>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/extensions
-import IncrementButton from './IncrementButton.jsx';
+import IncrementButtonsArray from '../IncrementButtonsArray.jsx';
 
 const NewBalancePopUp = ({ addBalance, setPopUpState }) => {
   const [newBalance, setNewBalance] = useState(0);
@@ -20,17 +20,22 @@ const NewBalancePopUp = ({ addBalance, setPopUpState }) => {
       <h3>New Balance</h3>
       <p>{newBalance}</p>
       <div className="button-wrapper">
-        {[1000, 100, 10].map(element => {
-          return (
-            <IncrementButton
-              key={element}
-              value={element}
-              increment={updateNewBalance}
-              disabledCondition={false}
-            />
-          );
+        {IncrementButtonsArray({
+          upperBound: 1000000,
+          value: 0,
+          array: [
+            { buttonVal: 1000, color: 'orange', message: 'add' },
+            { buttonVal: 100, color: 'yellow', message: 'add' },
+            { buttonVal: 10, color: 'grey', message: 'add' }
+          ],
+          increment: updateNewBalance
         })}
-        <input type="button" value="add new balance" onClick={() => updateBalance()} />
+        <input
+          type="button"
+          value="add new balance"
+          className="red"
+          onClick={() => updateBalance()}
+        />
       </div>
     </div>
   );

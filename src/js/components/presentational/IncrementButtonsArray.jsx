@@ -4,14 +4,16 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line import/extensions
 import IncrementButton from './IncrementButton.jsx';
 
-const IncrementButtonsArray = ({ upperBound, value, increment }) => {
-  return [10, 100, 1000].map(element => {
+const IncrementButtonsArray = ({ upperBound, value, increment, array }) => {
+  return array.map(({ buttonVal, color, message }) => {
     return (
       <IncrementButton
-        key={element}
-        value={element}
+        key={`${message}-${buttonVal}`}
+        value={buttonVal}
+        color={color}
         increment={increment}
-        disabledCondition={upperBound === 0 || upperBound < value + element}
+        message={message}
+        disabledCondition={upperBound === 0 || upperBound < value + buttonVal}
       />
     );
   });
@@ -19,8 +21,10 @@ const IncrementButtonsArray = ({ upperBound, value, increment }) => {
 
 IncrementButtonsArray.PropTypes = {
   upperBound: PropTypes.number,
+  array: PropTypes.arrayOf(PropTypes.object).isRequired,
   value: PropTypes.number,
-  increment: PropTypes.func.isRequired
+  increment: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired
 };
 
 export default IncrementButtonsArray;

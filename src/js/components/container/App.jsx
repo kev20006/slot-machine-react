@@ -39,20 +39,25 @@ const App = () => {
 
   const newSpin = () => {
     setAnimate('rotate');
-    setGameBoard(newGameBoard().board);
+    const { board, boardTotal } = newGameBoard();
+    setLastStake(stake);
+    setCoefficient(boardTotal);
+    setPrize(stake * boardTotal);
     setTimeout(() => {
       setAnimate('');
-      const board = newGameBoard();
-      setCoefficient(board.boardTotal);
-      setPrize(stake * board.boardTotal);
-      setLastStake(stake);
-      setStake(0);
-    }, 1000);
+      setGameBoard(board);
+    }, 750);
+    setStake(0);
   };
 
   return (
     <div className="test" id="slot-machine">
-      <Header setBalance={setBalance} setErrorState={setErrorState} errorState={errorState} />
+      <Header
+        setBalance={setBalance}
+        setErrorState={setErrorState}
+        errorState={errorState}
+        balance={balance}
+      />
       <GameGrid board={gameBoard} animate={animate} />
       <Winning
         balance={balance}

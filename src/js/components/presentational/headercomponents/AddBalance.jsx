@@ -18,7 +18,7 @@ const AddBalance = ({ addBalance }) => {
       <input
         id="add-balance"
         onClick={() => setPopUpState('notHidden')}
-        className="flat-button"
+        className="red"
         type="button"
         value="add credit"
       />

@@ -1,0 +1,281 @@
+$turquoise: #1abc9c #16a085;
+$green: #2ecc71 #27ae60;
+$blue: #3498db #2980b9;
+$purple: #9b59b6 #8e44ad;
+$blueblack: #34499e #2c3e50;
+$yellow: #f1c40f #f39c12;
+$orange: #e67e22 #d35400;
+$red: #e74c3c #c0392b;
+$offwhite: #ecf0f1 #bdc3c7;
+$darkgrey: #95a5a6 #7f8c8d;
+
+@mixin text-3d($color) {
+  $ts: ();
+  @for $i from 1 through 100 {
+    $ts: $ts, $i * 1px $i * 1px $color;
+  }
+  text-shadow: $ts;
+}
+
+@keyframes fade {
+  from {
+    filter: alpha(opacity=100);
+  }
+  to {
+    filter: alpha(opacity=0);
+  }
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: nth($darkgrey, 1);
+}
+
+input[type='button'] {
+  font-size: 100%;
+  font-family: inherit;
+  border: 0;
+  padding: 0;
+  background: none;
+}
+
+.slot-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #49535d;
+  input {
+    padding: 10px;
+    color: white;
+  }
+}
+#slot-machine {
+  background-color: nth($offwhite, 1);
+  height: -webkit-fill-available;
+  @media only screen and (min-width: 768px) {
+    border-radius: 25px;
+    height: 100%;
+    overflow: hidden;
+  }
+  width: 100%;
+  max-width: 600px;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  $bs: ();
+  @for $i from 1 through 15 {
+    $bs: $bs, $i * 1px $i * 1px nth($blueblack, 2);
+  }
+  box-shadow: $bs;
+}
+
+.game-grid {
+  width: 100%;
+  margin-top: 1%;
+  .game-row {
+    display: flex;
+    justify-content: center;
+
+    .game-square {
+      $bs: ();
+      @for $i from 1 through 5 {
+        $bs: $bs, $i * 1px $i * 1px nth($blueblack, 2);
+      }
+      box-shadow: $bs;
+      overflow: hidden;
+      border-radius: 50%;
+      margin: 1%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 75px;
+      height: 75px;
+      font-size: 50px;
+      transform-style: preserve-3d;
+    }
+  }
+}
+
+.pop-up {
+  animation-name: 'fade';
+  animation-duration: 0.5s;
+  border-radius: 5px;
+  background-color: white;
+  top: 30%;
+  left: 10%;
+  @media screen and (min-width: 768px) {
+    left: calc(50% - 200px);
+  }
+  position: absolute;
+  z-index: 10;
+  width: 80%;
+  max-width: 400px;
+  left: 10%;
+  text-align: center;
+  .button-wrapper {
+    input {
+      padding: 10px;
+      color: white;
+      flex: 1;
+    }
+    display: flex;
+  }
+}
+
+@keyframes flip {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.rotate {
+  animation-name: flip;
+  animation-duration: 1.2s;
+}
+
+/******** controls *********/
+#bet-wrapper {
+  width: 100%;
+  height: fit-content;
+  .bet-wrapper {
+    display: flex;
+    justify-content: space-between;
+    .value-display {
+      color: nth($offwhite, 1);
+      background-color: nth($blueblack, 1);
+      border-radius: 25px;
+      padding: 10px 15px;
+      width: 80px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      &:nth-child(1) {
+        margin-left: 5px;
+      }
+      &:nth-child(3) {
+        margin-right: 5px;
+      }
+      h4 {
+        margin: 0px;
+        &:nth-child(2) {
+          text-align: right;
+          font-family: monospace;
+          font-size: 2em;
+          @include text-3d(nth($blueblack, 2));
+        }
+      }
+    }
+  }
+  .controls-wrapper {
+    height: 15vh;
+  }
+  .small-buttons {
+    width: 65%;
+  }
+  .controls-wrapper {
+    display: flex;
+    width: 100%;
+  }
+  .bet-controls,
+  .transfer-controls {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    input {
+      color: white;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      p {
+        margin: 0;
+      }
+      &:disabled {
+        filter: brightness(50%);
+      }
+    }
+  }
+  .bet-label {
+    font-family: sans-serif;
+  }
+}
+
+/******** colours *********/
+.green {
+  background-color: nth($green, 1) !important;
+  p {
+    @include text-3d(nth($green, 2));
+  }
+}
+
+.yellow {
+  background-color: nth($yellow, 1) !important;
+  p {
+    @include text-3d(nth($yellow, 2));
+  }
+}
+.purple {
+  background-color: nth($purple, 1) !important;
+  p {
+    @include text-3d(nth($purple, 2));
+  }
+}
+.blue {
+  background-color: nth($blue, 1) !important;
+  p {
+    @include text-3d(nth($blue, 2));
+  }
+}
+.grey {
+  background-color: nth($darkgrey, 1) !important;
+  p {
+    @include text-3d(nth($darkgrey, 2));
+  }
+}
+
+.red {
+  background-color: nth($red, 1) !important;
+  p {
+    @include text-3d(nth($red, 2));
+  }
+}
+.turquoise {
+  background-color: nth($turquoise, 1) !important;
+  p {
+    @include text-3d(nth($turquoise, 2));
+  }
+}
+
+.turquoise {
+  background-color: nth($turquoise, 1) !important;
+  p {
+    @include text-3d(nth($turquoise, 2));
+  }
+}
+
+.orange {
+  background-color: nth($orange, 1) !important;
+  p {
+    @include text-3d(nth($orange, 2));
+  }
+}
+
+.big-button {
+  display: inline-block;
+  color: white !important;
+  font-size: 3em;
+  flex: 2;
+  &:disabled {
+    filter: brightness(70%);
+  }
+}

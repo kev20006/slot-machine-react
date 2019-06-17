@@ -3,16 +3,15 @@ import PropTypes from 'prop-types';
 
 const PlaceBet = ({ placeBet, stake }) => {
   return (
-    <div>
-      <input
-        type="button"
-        onClick={() => {
-          placeBet(stake);
-        }}
-        value="SPIN"
-        disabled={!stake}
-      />
-    </div>
+    <input
+      className="big-button red button"
+      type="button"
+      onClick={() => {
+        placeBet(stake);
+      }}
+      value="SPIN"
+      disabled={!stake}
+    />
   );
 };
 
