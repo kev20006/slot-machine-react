@@ -3,9 +3,9 @@
 simple slot machine built using react hooks.
 (This app is still under-construction, Currently being styled)
 
-Known Bugs:
-Wins are being calculated the spin after they are calculated
-rotation animation is still quite janky - useInterval method to be implemented
+#### Known Bugs: 
+* wins are being calculated the spin after they are calculated
+* rotation animation is still quite janky - useInterval method to be implemented
 
 ## set up
 
