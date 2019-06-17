@@ -1,0 +1,70 @@
+@import './mixins.scss';
+$turquoise: #1abc9c #16a085;
+$green: #2ecc71 #27ae60;
+$blue: #3498db #2980b9;
+$purple: #9b59b6 #8e44ad;
+$blueblack: #34499e #2c3e50;
+$yellow: #f1c40f #f39c12;
+$orange: #e67e22 #d35400;
+$red: #e74c3c #c0392b;
+$offwhite: #ecf0f1 #bdc3c7;
+$darkgrey: #95a5a6 #7f8c8d;
+
+.green {
+  background-color: nth($green, 1) !important;
+  p {
+    @include text-3d(nth($green, 2));
+  }
+}
+
+.yellow {
+  background-color: nth($yellow, 1) !important;
+  p {
+    @include text-3d(nth($yellow, 2));
+  }
+}
+.purple {
+  background-color: nth($purple, 1) !important;
+  p {
+    @include text-3d(nth($purple, 2));
+  }
+}
+.blue {
+  background-color: nth($blue, 1) !important;
+  p {
+    @include text-3d(nth($blue, 2));
+  }
+}
+.grey {
+  background-color: nth($darkgrey, 1) !important;
+  p {
+    @include text-3d(nth($darkgrey, 2));
+  }
+}
+
+.red {
+  background-color: nth($red, 1) !important;
+  p {
+    @include text-3d(nth($red, 2));
+  }
+}
+.turquoise {
+  background-color: nth($turquoise, 1) !important;
+  p {
+    @include text-3d(nth($turquoise, 2));
+  }
+}
+
+.turquoise {
+  background-color: nth($turquoise, 1) !important;
+  p {
+    @include text-3d(nth($turquoise, 2));
+  }
+}
+
+.orange {
+  background-color: nth($orange, 1) !important;
+  p {
+    @include text-3d(nth($orange, 2));
+  }
+}

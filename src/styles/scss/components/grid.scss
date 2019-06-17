@@ -1,0 +1,25 @@
+@import '../utils/mixins.scss';
+@import '../utils/colors.scss';
+
+.game-grid {
+  width: 100%;
+  margin-top: 1%;
+  .game-row {
+    display: flex;
+    justify-content: center;
+
+    .game-square {
+      @include box-3d($blueblack, 5);
+      overflow: hidden;
+      border-radius: 50%;
+      margin: 1%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 75px;
+      height: 75px;
+      font-size: 50px;
+      transform-style: preserve-3d;
+    }
+  }
+}

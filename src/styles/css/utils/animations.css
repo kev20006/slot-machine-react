@@ -1,0 +1,11 @@
+@keyframes flip {
+  from {
+    transform: rotateY(0deg); }
+  to {
+    transform: rotateY(360deg); } }
+.rotate {
+  animation-name: flip;
+  animation-duration: 0.7s;
+  animation-timing-function: linear; }
+
+/*# sourceMappingURL=animations.css.map */

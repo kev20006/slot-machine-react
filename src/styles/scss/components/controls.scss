@@ -1,0 +1,75 @@
+@import '../utils/colors.scss';
+#bet-wrapper {
+  width: 100%;
+  height: fit-content;
+  .bet-wrapper {
+    display: flex;
+    justify-content: space-between;
+    .value-display {
+      color: nth($offwhite, 1);
+      background-color: nth($blueblack, 1);
+      border-radius: 25px;
+      padding: 10px 15px;
+      width: 80px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      &:nth-child(1) {
+        margin-left: 5px;
+      }
+      &:nth-child(3) {
+        margin-right: 5px;
+      }
+      h4 {
+        margin: 0px;
+        &:nth-child(2) {
+          text-align: right;
+          font-family: monospace;
+          font-size: 2em;
+          @include text-3d(nth($blueblack, 2));
+        }
+      }
+    }
+  }
+  .controls-wrapper {
+    height: 15vh;
+  }
+  .small-buttons {
+    width: 65%;
+  }
+  .controls-wrapper {
+    display: flex;
+    width: 100%;
+  }
+  .bet-controls,
+  .transfer-controls {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    input {
+      color: white;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      p {
+        margin: 0;
+      }
+      &:disabled {
+        filter: brightness(50%);
+      }
+    }
+  }
+  .bet-label {
+    font-family: sans-serif;
+  }
+}
+
+.big-button {
+  display: inline-block;
+  color: white !important;
+  font-size: 3em;
+  flex: 2;
+  &:disabled {
+    filter: brightness(70%);
+  }
+}

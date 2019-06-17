@@ -1,0 +1,14 @@
+@mixin text-3d($color) {
+  $ts: ();
+  @for $i from 1 through 100 {
+    $ts: $ts, $i * 1px $i * 1px $color;
+  }
+  text-shadow: $ts;
+}
+@mixin box-3d($color, $size) {
+  $bs: ();
+  @for $i from 1 through $size {
+    $bs: $bs, $i * 1px $i * 1px nth($color, 2);
+  }
+  box-shadow: $bs;
+}

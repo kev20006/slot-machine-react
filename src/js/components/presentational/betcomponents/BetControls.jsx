@@ -43,7 +43,7 @@ const BetControls = ({
             type="button"
             onClick={() => increaseStake(balance)}
             value="Max"
-            disabled={!balance}
+            disabled={balance === stake}
           />
         </div>
         <div className="transfer-controls">

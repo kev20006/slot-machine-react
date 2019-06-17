@@ -22,6 +22,13 @@ const TransferBalancePopup = ({ transferWinnings, winnings, balance, setTransfer
           ],
           increment: transferWinnings
         })}
+        <input
+          className="green"
+          type="button"
+          onClick={() => transferWinnings(winnings)}
+          disabled={winnings === 0}
+          value="max"
+        />
         <input type="button" value="done" className="red" onClick={() => setTransferOpen(false)} />
       </div>
     </div>
