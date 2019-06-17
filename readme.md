@@ -1,6 +1,6 @@
 # React Slot Machine
 
-simple slot machine in react.
+simple slot machine built using react hooks.
 
 ## set up
 
